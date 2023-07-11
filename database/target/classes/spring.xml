@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+   <bean id="student" class="com.glvc.student">
+   </bean>
+    
+   <bean id="dao" class="com.glvc.studentDAO">
+   <property name="temp" ref="template"></property>
+   </bean>
+   
+   <bean id="template" class="org.springframework.orm.hibernate3.HibernateTemplate">
+   <property name="sessionFactory" ref="sf"></property>
+   </bean>
+   
+   <bean id="sf" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+   <property name="dataSource" ref="ds"></property>
+   <property name="packagesToScan" value="com.glvc"></property>
+   <property name="hibernateProperties">
+   <!-- dialect,hbm2ddl,show_sql -->
+   <props>
+   <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+   <prop key="hibernate.show_sql">true</prop>
+   <prop key="hibernate.hbm2ddl.auto">update</prop>
+   </props>
+   
+   </property>
+   </bean>
+   
+   
+   
+   <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
+   <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+   <property name="url" value="jdbc:mysql://localhost:3306/studentdB"></property>
+   <property name="username" value="root"></property>
+   <property name="password" value="root"></property>
+   </bean>
+   
+</beans>
+
+
